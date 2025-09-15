@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>CNCS2厨神之路 - CS2 学习站</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top-nav">
+  <div class="logo">
+    <img src="images/cs2-icon.png" alt="CS2 图标">
+    <span>CS2 学习站</span>
+  </div>
+  <nav>
+    <a href="index.html">首页</a>
+    <a href="map.html">地图介绍</a>
+    <a href="team.html">新天禄介绍</a>
+    <a href="data.html">数据分析</a>
+  </nav>
+</header>
+<style>
+    /* 全局重置与基础样式 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft Yahei", sans-serif;
+    }
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* 容器：限制宽度 + 居中 */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* 每个 UI 区块的通用样式 */
+    .section-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 30px;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .section-card:hover {
+      transform: translateY(-5px); /*  hover 上浮，增加交互感 */
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    /* 标题样式 */
+    .section-title {
+      font-size: 24px;
+      color: #1a5276; /* 深蓝色标题 */
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #6a11cb; /* 紫色下划线 */
+      display: inline-block;
+    }
+
+    /* 段落样式 */
+    .section-desc {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* 每个区块的个性化背景（可选） */
+    #map-section {
+      background: linear-gradient(120deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    #team-section {
+      background: linear-gradient(120deg, #f0f4f8 0%, #d9e2ec 100%);
+    }
+    #data-section {
+      background: linear-gradient(120deg, #fdfcfb 0%, #e2d1c3 100%);
+    }
+  </style>
+</head>
+<body>
+    <main>
+    <section class="page-title">
+        <h1>CNCS2厨神之路</h1>
+        <p>欢迎来到 CS2 学习站！这里收录了地图点位、新天禄战队介绍，以及未来的数据分析模块。</p>
+    </section>
+<div class="container">
+    <!-- 第一段：地图点位 -->
+    <section class="section-card" id="map-section">
+      <h2 class="section-title">地图点位全解析</h2>
+      <p class="section-desc">
+        这里完整收录了 CS2 各热门地图（如炼狱小镇、荒漠迷城等）的核心点位解析，不仅有清晰的攻防路线示意图，还配有实用的道具投掷教程，助你精准掌握地图博弈技巧。从基础的出生点、包点布局，到进阶的非常规绕后路线、道具封烟点位，每个知识点都经过实战验证，帮你快速构建地图认知体系。
+      </p>
+    </section>
+
+    <!-- 第二段：新天禄战队介绍 -->
+    <section class="section-card" id="team-section">
+      <h2 class="section-title">新天禄战队深度介绍</h2>
+      <p class="section-desc">
+        同步新天禄战队最新动态，带来独家深度内容：从战队成员更迭历程、当前首发阵容特点，到不同地图的战术适配策略，以及近期赛事表现与排名分析。更拆解战队战术体系，详解选手个人擅长位置、残局处理风格，和战队经典攻防套路、大赛高光战役复盘，全方位呈现职业战队的运营思路。
+      </p>
+    </section>
+
+    <!-- 第三段：数据分析模块 -->
+    <section class="section-card" id="data-section">
+      <h2 class="section-title">专业数据分析模块</h2>
+      <p class="section-desc">
+        未来将上线的数据分析模块，会整合职业联赛数据、玩家段位分布、武器使用率趋势等多维信息。涵盖职业赛事胜率排行、主流武器伤害对比、玩家对局经济运营数据等实用维度，结合当前版本 meta（游戏环境），提供武器选择、经济运营等数据参考，让你的学习更贴合当下竞技节奏，从“看懂比赛”到“提升操作”，系统掌握 CS2 竞技技巧。
+      </p>
+    </section>
+  </div>
+<!-- 切换按钮 -->
+<div class="toggle-container">
+  <label class="switch">
+    <input type="checkbox" id="modeToggle">
+    <span class="slider"></span>
+  </label>
+</div>
+    
+<!-- 公共脚本 -->
+<script src="js/script.js"></script>
+</main>
+</body>
+</html>

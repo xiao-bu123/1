@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>新天禄介绍 - CS2 学习站</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top-nav">
+  <div class="logo">
+    <img src="images/cs2-icon.png" alt="CS2 图标">
+    <span>CS2 学习站</span>
+  </div>
+  <nav>
+    <a href="index.html">首页</a>
+    <a href="map.html">地图介绍</a>
+    <a href="team.html">新天禄介绍</a>
+    <a href="data.html">数据分析</a>
+  </nav>
+</header>
+<main>
+    <section class="page-title">
+        <h1>新天禄介绍</h1>
+        <p>这里是新天禄的资料，包括新天禄的成员介绍、技能介绍、技能图标、技能图标下载、技能图标使用方法。</p>
+    </section>
+
+<!-- 修改：将文字改为表格形式 -->
+<div class="table-container">
+<table>
+    <tr>
+        <th>选手</th>
+        <th>位置</th>
+        <th>年龄</th>
+        <th>关键信息</th>
+    </tr>
+    <tr>
+        <td>Mercury</td>
+        <td>指挥 / 步枪</td>
+        <td>24岁</td>
+        <td>2025年初转型指挥，战术调度与控图见长；EPL S21率队晋级正赛</td>
+    </tr>
+    <tr>
+        <td>Jee</td>
+        <td>狙击手</td>
+        <td>20岁</td>
+        <td>2024-06加入；2023年随LVG征战Major，风格果敢、上限高</td>
+    </tr>
+    <tr>
+        <td>JamYoung</td>
+        <td>自由人</td>
+        <td>23岁</td>
+        <td>灵性走位与残局能力强；曾短暂兼任指挥，2025年回归首发</td>
+    </tr>
+    <tr>
+        <td>Moseyuh</td>
+        <td>步枪 / 补枪</td>
+        <td>20岁</td>
+        <td>残局稳健、推进高效；EPL S21入围赛场均1.20Rating</td>
+    </tr>
+    <tr>
+        <td>Attacker</td>
+        <td>突破</td>
+        <td>28岁</td>
+        <td>大赛经验丰富，节奏带动与道具运用稳定</td>
+    </tr>
+</table>
+</div>
+
+<div class="performance-section">
+    <div class="performance-card">
+        <h3 class="performance-title">🏆 近期表现</h3>
+        <p class="performance-content">
+            2025年7月在塞尔维亚贝尔格莱德的"<span class="highlight">裂变天地 S1（FISSURE Playground 1）</span>"全球总决赛中，TYLOO以<span class="score">3-1</span>击败Astralis夺冠，JamYoung荣膺<span class="mvp">HLTV赛事MVP</span>，队伍世界排名升至<span class="ranking">第7</span>。
+        </p>
+    </div>
+    
+    <div class="event-card">
+        <h3 class="event-title">🎮 赛事信息</h3>
+        <div class="event-details">
+            <div class="event-item">
+                <span class="event-label">赛事名称：</span>
+                <span class="event-value">FISSURE Playground 1（S1）</span>
+            </div>
+            <div class="event-item">
+                <span class="event-label">赛事等级：</span>
+                <span class="event-value tier-a">A级线下赛</span>
+            </div>
+            <div class="event-item">
+                <span class="event-label">总奖金：</span>
+                <span class="event-value prize">100万美元</span>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- 新增：添加表格排序功能 -->
+<script>
+document.querySelectorAll("th").forEach((th, colIndex) => {
+    // 只针对 “年龄” 这一列（第3列，下标从0开始）
+    if (th.innerText.includes("年龄")) {
+        // 在表头加上默认符号
+        let icon = document.createElement("span");
+        icon.textContent = " ↕";
+        icon.style.fontSize = "12px";
+        icon.style.color = "#666";
+        th.appendChild(icon);
+
+        let asc = true; // 默认升序
+
+        th.addEventListener("click", () => {
+            let table = th.closest("table");
+            let rows = Array.from(table.querySelectorAll("tr:nth-child(n+2)"));
+
+            let sorted = rows.sort((a, b) => {
+                // 取出“xx岁”里的数字
+                let valA = parseInt(a.children[colIndex].innerText.trim());
+                let valB = parseInt(b.children[colIndex].innerText.trim());
+                return asc ? valA - valB : valB - valA;
+            });
+
+            sorted.forEach(r => table.appendChild(r));
+
+            // 更新符号
+            icon.textContent = asc ? " ▲" : " ▼";
+            asc = !asc;
+        });
+    }
+});
+</script>
+    <!-- 切换按钮 --><div class="toggle-container">
+  <label class="switch">
+    <input type="checkbox" id="modeToggle">
+    <span class="slider"></span>
+  </label>
+</div>
+<!-- 公共脚本 -->
+<script src="js/script.js"></script>
+</main>
+</body>
+</html>
