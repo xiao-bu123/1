@@ -891,3 +891,200 @@ body.dark-mode .link-btn.defense {
     justify-content: center;
   }
 }
+
+/* --------- 夜间模式开关（右下角悬浮） --------- */
+.toggle-container {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 1200;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 56px;
+  height: 30px;
+}
+
+/* 隐藏原始 checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* 滑块 */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #e2e8f0; /* 灰色轨道 */
+  transition: 0.3s;
+  border-radius: 999px;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 4px;
+  top: 4px;
+  background-color: #fff;
+  transition: 0.3s;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* 选中状态（夜间模式） */
+.switch input:checked + .slider {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* 夜间模式下开关外观微调 */
+body.dark-mode .slider {
+  background: #374151;
+}
+
+/* 小屏优化 */
+@media (max-width: 480px) {
+  .toggle-container { right: 12px; bottom: 16px; }
+  .switch { width: 50px; height: 28px; }
+  .slider:before { height: 20px; width: 20px; top: 4px; left: 4px; }
+}
+
+/* --------- 选手详情模态窗 --------- */
+.player-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 11000;
+}
+
+.player-modal {
+  width: min(920px, 92vw);
+  max-height: 88vh;
+  overflow: hidden;
+  background: #0f172a; /* 深蓝偏黑 */
+  color: #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  transform: translateY(10px) scale(0.98);
+  opacity: 0;
+  transition: transform .25s ease, opacity .25s ease;
+  display: flex;           /* 新增：列布局 */
+  flex-direction: column;  /* 新增：列布局 */
+}
+
+.player-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+  color: #fff;
+}
+
+.player-modal-title { font-size: 18px; font-weight: 700; margin: 0; }
+
+.player-modal-close {
+  width: 36px; height: 36px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255,255,255,0.18); color: #fff; font-size: 20px; line-height: 36px;
+}
+
+.player-modal-body { 
+  display: grid; grid-template-columns: 260px 1fr; gap: 18px; padding: 18px; 
+  overflow: auto;                 /* 新增：主体可滚动 */
+  max-height: calc(88vh - 64px);  /* 新增：减去头部高度 */
+}
+
+.player-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px; padding: 14px; text-align: center;
+}
+.player-card img { width: 100%; border-radius: 10px; box-shadow: 0 10px 24px rgba(0,0,0,0.25); }
+.player-name { font-size: 20px; font-weight: 800; margin: 10px 0 6px; }
+.player-meta { font-size: 13px; opacity: .85; }
+
+.player-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+.stat-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; }
+.stat-val { font-size: 18px; font-weight: 800; }
+.stat-label { font-size: 12px; opacity: .8; }
+
+.player-desc { margin-top: 10px; font-size: 14px; line-height: 1.7; opacity: .95; }
+
+/* 明亮模式适配 */
+body:not(.dark-mode) .player-modal { background: #ffffff; color: #1f2937; }
+body:not(.dark-mode) .player-card { background: #f8fafc; border-color: #e5e7eb; }
+body:not(.dark-mode) .stat-box { background: #f8fafc; border-color: #e5e7eb; }
+
+.player-modal-overlay.active { display: flex; }
+.player-modal-overlay.active .player-modal { opacity: 1; transform: translateY(0) scale(1); }
+
+/* 触发按钮 */
+.player-detail-btn { 
+  margin-left: 8px; padding: 6px 10px; font-size: 12px; border-radius: 999px; border: 0; cursor: pointer;
+  background: linear-gradient(135deg,#667eea 0%, #764ba2 100%); color: #fff;
+}
+.player-detail-btn:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+@media (max-width: 768px) {
+  .player-modal-body { grid-template-columns: 1fr; max-height: calc(80vh - 60px); overflow: auto; }
+}
+
+/* --------- 数据分析：战队排名表 --------- */
+.rank-section { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+.table-responsive { position: relative; overflow: visible; border-radius: 0; box-shadow: none; background: transparent; }
+.rank-table { width: 100%; border-collapse: separate; border-spacing: 0; background: transparent; position: relative; z-index: 1; }
+.rank-table th, .rank-table td { white-space: nowrap; padding: 12px 14px; font-size: 14px; }
+.rank-table thead th { background: linear-gradient(135deg,#667eea,#764ba2); color: #fff; font-weight: 700; }
+.rank-table tbody tr:hover { background: #f7fafc;border-bottom: 1px solid #e5e7eb; }
+.rank-table tbody tr:nth-child(even) { background: #fafbff; }
+.rank-table .col-rank { text-align: center; width: 56px; font-weight: 700; }
+.rank-table .col-team { display: flex; align-items: center; gap: 8px; }
+.rank-table .badge { padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+.badge-good { background: #dcfce7; color: #166534; }
+.badge-mid { background: #fef9c3; color: #854d0e; }
+.badge-bad { background: #fee2e2; color: #991b1b; }
+/* 排序按钮样式 */
+.rank-table th.sortable { cursor: pointer; user-select: none; }
+.rank-table th.sortable .sort-ind { margin-left: 6px; opacity: .8; }
+
+/* 暗色模式 */
+body.dark-mode .table-responsive { box-shadow: 0 ; }
+body.dark-mode .rank-table { background: transparent; color: #e5e7eb; }
+body.dark-mode .rank-table th, body.dark-mode .rank-table td { border-bottom: 1px solid #374151; }
+body.dark-mode .rank-table thead th { background: linear-gradient(135deg,#4a5568,#2d3748); }
+body.dark-mode .rank-table tbody tr:hover { background: #111827; }
+body.dark-mode .rank-table tbody tr:nth-child(even) { background: #0f172a; }
+
+/* 倒数第二层背景：更大的底层卡片效果 */
+.table-responsive::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -26px; left: -26px; right: -26px; bottom: -26px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(102,126,234,0.10), rgba(118,75,162,0.10));
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+body.dark-mode .table-responsive::before { background: linear-gradient(180deg, rgba(74,85,104,0.35), rgba(45,55,72,0.35)); box-shadow: 0 20px 60px rgba(0,0,0,0.35); }
+/* 取消之前的sticky和占位行规则 */
+.rank-table.is-stuck thead th { position: static; top: auto; height: auto; }
+.rank-table.is-stuck tbody .sticky-spacer { display: none; }
+.rank-table tbody .sticky-spacer { display: none; }
