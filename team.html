@@ -37,33 +37,93 @@
         <td>Mercury</td>
         <td>指挥 / 步枪</td>
         <td>24岁</td>
-        <td>2025年初转型指挥，战术调度与控图见长；EPL S21率队晋级正赛</td>
+        <td>2025年初转型指挥，战术调度与控图见长；EPL S21率队晋级正赛
+            <button class="player-detail-btn" data-name="Mercury" data-role="指挥 / 步枪" data-age="24" data-desc="战术调度与控图见长，带队打入EPL正赛。">查看详情</button>
+        </td>
     </tr>
     <tr>
         <td>Jee</td>
         <td>狙击手</td>
         <td>20岁</td>
-        <td>2024-06加入；2023年随LVG征战Major，风格果敢、上限高</td>
+        <td>2024-06加入；2023年随LVG征战Major，风格果敢、上限高
+            <button class="player-detail-btn" data-name="Jee" data-role="狙击手" data-age="20" data-desc="果敢激进的狙击手，Major 经验，上限极高。">查看详情</button>
+        </td>
     </tr>
     <tr>
         <td>JamYoung</td>
         <td>自由人</td>
         <td>23岁</td>
-        <td>灵性走位与残局能力强；曾短暂兼任指挥，2025年回归首发</td>
+        <td>灵性走位与残局能力强；曾短暂兼任指挥，2025年回归首发
+            <button class="player-detail-btn" data-name="JamYoung" data-role="自由人" data-age="23" data-desc="残局处理出色，走位灵性，队伍核心火力点。">查看详情</button>
+        </td>
     </tr>
     <tr>
         <td>Moseyuh</td>
         <td>步枪 / 补枪</td>
         <td>20岁</td>
-        <td>残局稳健、推进高效；EPL S21入围赛场均1.20Rating</td>
+        <td>残局稳健、推进高效；EPL S21入围赛场均1.20Rating
+            <button class="player-detail-btn" data-name="Moseyuh" data-role="步枪 / 补枪" data-age="20" data-desc="推进效率高，残局稳定，补枪到位。">查看详情</button>
+        </td>
     </tr>
     <tr>
         <td>Attacker</td>
         <td>突破</td>
         <td>28岁</td>
-        <td>大赛经验丰富，节奏带动与道具运用稳定</td>
+        <td>大赛经验丰富，节奏带动与道具运用稳定
+            <button class="player-detail-btn" data-name="Attacker" data-role="突破" data-age="28" data-desc="经验老道的突破手，节奏把控稳健。">查看详情</button>
+        </td>
     </tr>
 </table>
+</div>
+
+<!-- 选手详情模态窗 -->
+<div class="player-modal-overlay" id="playerModal">
+  <div class="player-modal" role="dialog" aria-modal="true" aria-labelledby="playerModalTitle">
+    <div class="player-modal-header">
+      <h3 class="player-modal-title" id="playerModalTitle">选手详情</h3>
+      <button class="player-modal-close" id="playerModalClose" aria-label="关闭">×</button>
+    </div>
+    <div class="player-modal-body">
+      <div class="player-card">
+        <img id="playerPhoto" src="images/T.jpg" alt="player" />
+        <div class="player-name" id="playerName">-</div>
+        <div class="player-meta" id="playerRole">-</div>
+        <div class="player-meta" id="playerAge">- 岁</div>
+      </div>
+      <div>
+        <!-- 基础信息 -->
+        <div class="stat-box" style="margin-bottom:12px;">
+          <div class="stat-label">基础信息</div>
+          <div id="basicInfo" style="font-size:14px; line-height:1.8; margin-top:6px;">-</div>
+        </div>
+        <!-- 近三个月数据总览 -->
+        <div class="player-stats" style="margin-bottom:12px;">
+          <div class="stat-box"><div class="stat-val" id="statRating">—</div><div class="stat-label">Rating</div></div>
+          <div class="stat-box"><div class="stat-val" id="statKPR">—</div><div class="stat-label">KPR</div></div>
+          <div class="stat-box"><div class="stat-val" id="statKAST">—</div><div class="stat-label">KAST</div></div>
+          <div class="stat-box"><div class="stat-val" id="statImpact">—</div><div class="stat-label">Impact</div></div>
+          <div class="stat-box"><div class="stat-val" id="statADR">—</div><div class="stat-label">ADR</div></div>
+          <div class="stat-box"><div class="stat-val" id="statDPR">—</div><div class="stat-label">DPR</div></div>
+        </div>
+        <!-- 鼠标配置 -->
+        <div class="stat-box" style="margin-bottom:12px;">
+          <div class="stat-label">外设和游戏设置 - 鼠标配置</div>
+          <div id="mouseConfig" style="font-size:14px; line-height:1.8; margin-top:6px;">-</div>
+        </div>
+        <!-- 显示器配置 -->
+        <div class="stat-box" style="margin-bottom:12px;">
+          <div class="stat-label">显示器配置</div>
+          <div id="displayConfig" style="font-size:14px; line-height:1.8; margin-top:6px;">-</div>
+        </div>
+        <!-- 外设设备清单 -->
+        <div class="stat-box">
+          <div class="stat-label">外设设备</div>
+          <div id="gearList" style="font-size:14px; line-height:1.8; margin-top:6px;">-</div>
+        </div>
+        <div class="player-desc" id="playerDesc" style="margin-top:12px;">-</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="performance-section">
