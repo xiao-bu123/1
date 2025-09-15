@@ -23,17 +23,126 @@
             <h1>数据分析</h1>
             <p>这里将介绍CS2的数据分析，包括数据来源、数据处理、数据可视化。</p>
         </section>
-    
 
-    <!-- 切换按钮 -->
-<div class="toggle-container">
-  <label class="switch">
-    <input type="checkbox" id="modeToggle">
-    <span class="slider"></span>
-  </label>
-</div>
-<!-- 公共脚本 -->
-<script src="js/script.js"></script>
-     </main>
+        <!-- 战队排名表 -->
+        <section class="rank-section">
+          <div class="table-responsive">
+            <table class="rank-table" id="rankTable">
+              <thead>
+                <tr>
+                  <th class="col-rank">排名</th>
+                  <th>战队</th>
+                  <th class="sortable" data-key="rating">Rating <span class="sort-ind">↕</span></th>
+                  <th class="sortable" data-key="maps">地图数 <span class="sort-ind">↕</span></th>
+                  <th class="sortable" data-key="mapWin">地图胜率 <span class="sort-ind">↕</span></th>
+                  <th class="sortable" data-key="boWin">比赛数 <span class="sort-ind">↕</span></th>
+                  <th class="sortable" data-key="boWinRate">比赛胜率 <span class="sort-ind">↕</span></th>
+                  <th class="sortable" data-key="rounds">回合数 <span class="sort-ind">↕</span></th>
+                  <th class="sortable" data-key="kd">K/D <span class="sort-ind">↕</span></th>
+                  <th class="sortable" data-key="kdDiff">KD差 <span class="sort-ind">↕</span></th>
+                  <th class="sortable" data-key="tWin">先五胜概率 <span class="sort-ind">↕</span></th>
+                  <th class="sortable" data-key="ctWin">先十胜概率 <span class="sort-ind">↕</span></th>
+                </tr>
+              </thead>
+              <tbody id="rankBody">
+                <!-- 动态填充 -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 切换按钮 -->
+        <div class="toggle-container">
+          <label class="switch">
+            <input type="checkbox" id="modeToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <!-- 公共脚本 -->
+        <script src="js/script.js"></script>
+        
+        <!-- 排名表脚本 -->
+        <script>
+          const rankData = [
+            { team:'VP', rating:1.19, maps:4, mapWin:75.0, boWin:4, boWinRate:25.0, rounds:20.0, kd:1.10, kdDiff:+26, tWin:50.0, ctWin:75.0 },
+            { team:'FURIA', rating:1.13, maps:13, mapWin:61.5, boWin:13, boWinRate:61.5, rounds:21.5, kd:1.16, kdDiff:+132, tWin:61.5, ctWin:69.2 },
+            { team:'Vitality', rating:1.12, maps:12, mapWin:66.7, boWin:12, boWinRate:75.0, rounds:20.7, kd:1.07, kdDiff:+54, tWin:58.3, ctWin:75.0 },
+            { team:'G2', rating:1.11, maps:11, mapWin:63.6, boWin:11, boWinRate:63.6, rounds:22.2, kd:1.03, kdDiff:+24, tWin:63.6, ctWin:63.6 },
+            { team:'paiN', rating:1.09, maps:5, mapWin:60.0, boWin:5, boWinRate:80.0, rounds:22.2, kd:1.04, kdDiff:+15, tWin:60.0, ctWin:60.0 },
+            { team:'MOUZ', rating:1.08, maps:10, mapWin:60.0, boWin:10, boWinRate:60.0, rounds:20.6, kd:1.08, kdDiff:+53, tWin:50.0, ctWin:50.0 },
+            { team:'NAVI', rating:1.08, maps:6, mapWin:66.7, boWin:6, boWinRate:66.7, rounds:26.7, kd:1.03, kdDiff:+15, tWin:33.3, ctWin:33.3 },
+            { team:'Aurora', rating:1.07, maps:4, mapWin:75.0, boWin:4, boWinRate:75.0, rounds:21.3, kd:0.98, kdDiff:-6, tWin:50.0, ctWin:50.0 },
+            { team:'GL', rating:1.06, maps:7, mapWin:42.9, boWin:7, boWinRate:42.9, rounds:18.3, kd:0.98, kdDiff:-7, tWin:57.1, ctWin:42.9 },
+            { team:'FaZe', rating:1.06, maps:7, mapWin:42.9, boWin:7, boWinRate:42.9, rounds:21.4, kd:0.96, kdDiff:-21, tWin:57.1, ctWin:28.6 },
+            { team:'TYLOO', rating:1.05, maps:12, mapWin:50.0, boWin:12, boWinRate:66.7, rounds:22.1, kd:1.01, kdDiff:+5, tWin:66.7, ctWin:50.0 },
+            { team:'3DMAX', rating:1.05, maps:7, mapWin:71.4, boWin:7, boWinRate:57.1, rounds:24.6, kd:0.99, kdDiff:-8, tWin:42.9, ctWin:42.9 },
+            { team:'FlyQuest', rating:1.04, maps:3, mapWin:66.7, boWin:3, boWinRate:66.7, rounds:25.7, kd:0.98, kdDiff:-5, tWin:33.3, ctWin:66.7 },
+            { team:'Mongolz', rating:1.02, maps:7, mapWin:28.6, boWin:7, boWinRate:42.9, rounds:23.6, kd:0.92, kdDiff:-45, tWin:42.9, ctWin:57.1 },
+            { team:'Astralis', rating:1.02, maps:6, mapWin:66.7, boWin:6, boWinRate:33.3, rounds:21.8, kd:0.98, kdDiff:-9, tWin:50.0, ctWin:50.0 },
+            { team:'Falcons', rating:1.02, maps:4, mapWin:25.0, boWin:4, boWinRate:75.0, rounds:19.8, kd:0.98, kdDiff:-6, tWin:50.0, ctWin:25.0 },
+            { team:'ECSTATIC', rating:1.01, maps:1, mapWin:0.0, boWin:1, boWinRate:0.0, rounds:29.0, kd:0.91, kdDiff:-9, tWin:100.0, ctWin:100.0 },
+            { team:'M80', rating:0.99, maps:3, mapWin:33.3, boWin:3, boWinRate:33.3, rounds:21.0, kd:0.91, kdDiff:-20, tWin:33.3, ctWin:33.3 },
+            { team:'SAW', rating:0.98, maps:3, mapWin:33.3, boWin:3, boWinRate:66.7, rounds:22.7, kd:0.97, kdDiff:-6, tWin:66.7, ctWin:66.7 },
+            { team:'BIG', rating:0.98, maps:2, mapWin:0.0, boWin:2, boWinRate:0.0, rounds:22.0, kd:0.96, kdDiff:-6, tWin:0.0, ctWin:0.0 },
+            { team:'Wildcard', rating:0.94, maps:2, mapWin:50.0, boWin:2, boWinRate:0.0, rounds:16.5, kd:0.85, kdDiff:-16, tWin:50.0, ctWin:50.0 },
+            { team:'B8', rating:0.93, maps:2, mapWin:0.0, boWin:2, boWinRate:0.0, rounds:31.5, kd:0.88, kdDiff:-26, tWin:50.0, ctWin:50.0 },
+            { team:'Liquid', rating:0.93, maps:5, mapWin:20.0, boWin:5, boWinRate:0.0, rounds:20.4, kd:0.82, kdDiff:-63, tWin:0.0, ctWin:20.0 },
+            { team:'Legacy', rating:0.92, maps:4, mapWin:0.0, boWin:4, boWinRate:0.0, rounds:20.8, kd:0.79, kdDiff:-62, tWin:50.0, ctWin:25.0 },
+            { team:'LVG', rating:0.86, maps:1, mapWin:0.0, boWin:1, boWinRate:0.0, rounds:21.0, kd:0.86, kdDiff:-10, tWin:0.0, ctWin:0.0 },
+            { team:'COL', rating:0.85, maps:3, mapWin:33.3, boWin:3, boWinRate:0.0, rounds:19.0, kd:0.81, kdDiff:-37, tWin:33.3, ctWin:33.3 },
+            { team:'NIP', rating:0.74, maps:1, mapWin:0.0, boWin:1, boWinRate:0.0, rounds:16.0, kd:0.69, kdDiff:-20, tWin:0.0, ctWin:0.0 },
+            { team:'RA', rating:0.58, maps:1, mapWin:0.0, boWin:1, boWinRate:0.0, rounds:16.0, kd:0.46, kdDiff:-38, tWin:0.0, ctWin:0.0 }
+          ];
+
+          const rankBody = document.getElementById('rankBody');
+          let sortKey = 'rating';
+          let sortAsc = false;
+
+          function badge(val) {
+            if (val >= 66.7) return '<span class="badge badge-good">' + val + '%</span>';
+            if (val >= 50) return '<span class="badge badge-mid">' + val + '%</span>';
+            return '<span class="badge badge-bad">' + val + '%</span>';
+          }
+
+          function render() {
+            const data = [...rankData].sort((a,b)=>{
+              const av = a[sortKey]; const bv = b[sortKey];
+              return sortAsc ? av - bv : bv - av;
+            });
+            const rows = data.map((d, i) => `
+              <tr>
+                <td class="col-rank">${i+1}</td>
+                <td class="col-team">${d.team}</td>
+                <td>${d.rating.toFixed(2)}</td>
+                <td>${d.maps}</td>
+                <td>${badge(d.mapWin)}</td>
+                <td>${d.boWin}</td>
+                <td>${badge(d.boWinRate)}</td>
+                <td>${d.rounds.toFixed(1)}</td>
+                <td>${d.kd.toFixed(2)}</td>
+                <td>${d.kdDiff}</td>
+                <td>${badge(d.tWin)}</td>
+                <td>${badge(d.ctWin)}</td>
+              </tr>
+            `).join('');
+            // 在首行加入占位行（默认隐藏，is-stuck时显示）
+            rankBody.innerHTML = `<tr class="sticky-spacer"><td colspan="12"></td></tr>` + rows;
+          }
+
+          render();
+
+          document.querySelectorAll('#rankTable th.sortable').forEach(th=>{
+            th.addEventListener('click', ()=>{
+              const key = th.dataset.key;
+              if (sortKey === key) { sortAsc = !sortAsc; } else { sortKey = key; sortAsc = false; }
+              render();
+            });
+          });
+
+          // 移除滚动监听与is-stuck逻辑，表头固定在表上即可
+        </script>
+
+    </main>
 </body>
 </html>
